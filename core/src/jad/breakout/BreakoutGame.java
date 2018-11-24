@@ -24,10 +24,7 @@ public class BreakoutGame extends Game {
 	public void create () {
 		spriteBatch = new SpriteBatch();
 
-		try {
-            this.screen = this.guiStateMachine.determineScreen(this);
-        } catch (Exception e) {
-        }
+        this.screen = this.guiStateMachine.determineScreen(this);
 	}
 
 	@Override
@@ -52,4 +49,7 @@ public class BreakoutGame extends Game {
         return spriteBatch;
     }
 
+    public GuiStateMachine getGuiStateMachine() {
+        return guiStateMachine;
+    }
 }

@@ -14,12 +14,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainMenuScreen extends ExtendedScreen {
+public class InitialsMenuScreen extends ExtendedScreen {
 
     private final OrthographicCamera camera;
 
     public static ScreenOptions getScreenOptions() {
-        return new ScreenOptions(MainMenuScreen.class, MainMenuScreen.getStateChangeKeys());
+        return new ScreenOptions(InitialsMenuScreen.class, InitialsMenuScreen.getStateChangeKeys());
     }
 
     private static List<Integer> getStateChangeKeys() {
@@ -29,7 +29,7 @@ public class MainMenuScreen extends ExtendedScreen {
         return stateChangeKeys;
     }
 
-    public MainMenuScreen(final BreakoutGame breakoutGame) {
+    public InitialsMenuScreen(final BreakoutGame breakoutGame) {
         super(breakoutGame);
         this.camera = new OrthographicCamera();
         this.camera.setToOrtho(false, breakoutGame.getWIDTH(), breakoutGame.getHEIGHT());
@@ -51,7 +51,7 @@ public class MainMenuScreen extends ExtendedScreen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClearColor(0, 0, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         this.camera.update();
 
@@ -61,7 +61,7 @@ public class MainMenuScreen extends ExtendedScreen {
         spriteBatch.setProjectionMatrix(this.camera.combined);
         spriteBatch.begin();
         spriteBatch.draw(
-                   texture,
+                texture,
                 this.game.getWIDTH() / 2,
                 this.game.getHEIGHT() / 2,
                 100,

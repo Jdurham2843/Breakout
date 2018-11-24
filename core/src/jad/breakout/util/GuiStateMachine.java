@@ -3,6 +3,7 @@ package jad.breakout.util;
 import com.badlogic.gdx.Gdx;
 import jad.breakout.BreakoutGame;
 import jad.breakout.GuiState;
+import jad.breakout.InitialsMenuScreen;
 import jad.breakout.MainMenuScreen;
 
 import java.lang.reflect.Constructor;
@@ -17,7 +18,7 @@ public class GuiStateMachine {
 
     static {
         screenMap.put(GuiState.MainMenu, MainMenuScreen.getScreenOptions());
-        screenMap.put(GuiState.InitialsMenu, null);
+        screenMap.put(GuiState.InitialsMenu, InitialsMenuScreen.getScreenOptions());
         screenMap.put(GuiState.GameScreen, null);
         screenMap.put(GuiState.PauseScreen, null);
     }
@@ -31,12 +32,27 @@ public class GuiStateMachine {
                 .anyMatch(key -> Gdx.input.isButtonPressed(key));
     }
 
-    public ExtendedScreen determineScreen(final BreakoutGame game) throws Exception {
-        final ScreenOptions screenOptions = this.screenMap.get(this.currentGuiState);
+    public ExtendedScreen determineScreen(final BreakoutGame game)  {
+        if (true) {
+            switch (this.currentGuiState) {
+                case MainMenu:
+                    this.currentGuiState = GuiState.InitialsMenu;
+                    break;
+                case InitialsMenu:
+                    this.currentGuiState = GuiState.MainMenu;
+                    break;
+            }
+        }
 
-        final Constructor<?> constructor =
-                screenOptions.getScreenClass().getConstructor(game.getClass());
-        return (ExtendedScreen) constructor.newInstance(game);
+        final ScreenOptions screenOptions = screenMap.get(this.currentGuiState);
+
+        try {
+            final Constructor<?> constructor =
+                    screenOptions.getScreenClass().getConstructor(game.getClass());
+            return (ExtendedScreen) constructor.newInstance(game);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public GuiState getCurrentGuiState() {
