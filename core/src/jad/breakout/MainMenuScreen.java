@@ -1,13 +1,17 @@
 package jad.breakout;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import jad.breakout.util.Screen;
 
-public class MainMenuScreen implements Screen {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainMenuScreen extends Screen {
 
     private final OrthographicCamera camera;
 
@@ -15,11 +19,16 @@ public class MainMenuScreen implements Screen {
 
     private final Texture texture;
 
-    private final BreakoutGame breakoutGame;
+    public static List<Integer> getStateChangeKeys() {
+        final List<Integer> stateChangeKeys = new ArrayList<>();
+        stateChangeKeys.add(Input.Keys.ANY_KEY);
+
+        return stateChangeKeys;
+    }
 
     public MainMenuScreen(final BreakoutGame breakoutGame) {
-        this.breakoutGame = breakoutGame;
-        this.spriteBatch = breakoutGame.getBatch();
+        super(breakoutGame);
+        this.spriteBatch = breakoutGame.getSpriteBatch();
         this.camera = new OrthographicCamera();
         this.camera.setToOrtho(false, 800, 480);
         this.texture = breakoutGame.getImg();
@@ -39,8 +48,8 @@ public class MainMenuScreen implements Screen {
         this.spriteBatch.begin();
         this.spriteBatch.draw(
                    this.texture,
-                this.breakoutGame.getWIDTH() / 2,
-                this.breakoutGame.getHEIGHT() / 2,
+                this.game.getWIDTH() / 2,
+                this.game.getHEIGHT() / 2,
                 100,
                 100);
         this.spriteBatch.end();

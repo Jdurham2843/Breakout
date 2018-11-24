@@ -1,6 +1,7 @@
-package jad.breakout.model;
+package jad.breakout.util;
 
 import com.badlogic.gdx.graphics.Texture;
+import jad.breakout.model.Breakout;
 
 import java.util.Map;
 
