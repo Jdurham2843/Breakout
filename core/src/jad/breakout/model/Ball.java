@@ -3,9 +3,9 @@ package jad.breakout.model;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
-public class Ball {
+public class Ball  {
 
-    private final Texture texture;
+    public static final String IMAGE_PATH = "image-path";
 
     private final Vector2 position;
 
@@ -13,15 +13,10 @@ public class Ball {
 
     private final Double yVelocity;
 
-    public Ball(Texture texture, Vector2 position, Double xVelocity, Double yVelocity) {
-        this.texture = texture;
+    public Ball(Vector2 position, Double xVelocity, Double yVelocity) {
         this.position = position;
         this.xVelocity = xVelocity;
         this.yVelocity = yVelocity;
-    }
-
-    public Texture getTexture() {
-        return texture;
     }
 
     public Vector2 getPosition() {

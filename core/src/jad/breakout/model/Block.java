@@ -6,6 +6,8 @@ import java.awt.*;
 
 public class Block {
 
+    public static final String IMAGE_PATH = "image-path";
+
     private final Color color;
 
     private final Vector2 position;

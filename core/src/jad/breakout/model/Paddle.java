@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Paddle {
 
+    public static final String IMAGE_PATH = "image-path";
+
     private final Texture texture;
 
     private final Vector2 position;
