@@ -6,12 +6,13 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import jad.breakout.util.Screen;
+import jad.breakout.util.ExtendedScreen;
+import jad.breakout.util.ScreenOptions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainMenuScreen extends Screen {
+public class MainMenuScreen extends ExtendedScreen {
 
     private final OrthographicCamera camera;
 
@@ -19,7 +20,11 @@ public class MainMenuScreen extends Screen {
 
     private final Texture texture;
 
-    public static List<Integer> getStateChangeKeys() {
+    public static ScreenOptions getScreenOptions() {
+        return new ScreenOptions(MainMenuScreen.class, MainMenuScreen.getStateChangeKeys());
+    }
+
+    private static List<Integer> getStateChangeKeys() {
         final List<Integer> stateChangeKeys = new ArrayList<>();
         stateChangeKeys.add(Input.Keys.ANY_KEY);
 
@@ -30,9 +35,10 @@ public class MainMenuScreen extends Screen {
         super(breakoutGame);
         this.spriteBatch = breakoutGame.getSpriteBatch();
         this.camera = new OrthographicCamera();
-        this.camera.setToOrtho(false, 800, 480);
+        this.camera.setToOrtho(false, breakoutGame.getWIDTH(), breakoutGame.getHEIGHT());
         this.texture = breakoutGame.getImg();
     }
+
     @Override
     public void show() {
 

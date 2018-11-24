@@ -16,7 +16,7 @@ public class GuiStateMachine {
     private static final Map<GuiState, ScreenOptions> screenMap = new HashMap<>();
 
     static {
-        screenMap.put(GuiState.MainMenu, new ScreenOptions(MainMenuScreen.class, MainMenuScreen.getStateChangeKeys()));
+        screenMap.put(GuiState.MainMenu, MainMenuScreen.getScreenOptions());
         screenMap.put(GuiState.InitialsMenu, null);
         screenMap.put(GuiState.GameScreen, null);
         screenMap.put(GuiState.PauseScreen, null);
@@ -31,10 +31,10 @@ public class GuiStateMachine {
                 .anyMatch(key -> Gdx.input.isButtonPressed(key));
     }
 
-    public Screen determineScreen(final BreakoutGame game) throws Exception {
+    public ExtendedScreen determineScreen(final BreakoutGame game) throws Exception {
         final Constructor<?> constructor =
-                this.screenMap.get(this.currentGuiState).getScreenClass().getConstructor(Screen.class);
-        return (Screen) constructor.newInstance(game);
+                this.screenMap.get(this.currentGuiState).getScreenClass().getConstructor(ExtendedScreen.class);
+        return (ExtendedScreen) constructor.newInstance(game);
     }
 
     public GuiState getCurrentGuiState() {
