@@ -32,8 +32,10 @@ public class GuiStateMachine {
     }
 
     public ExtendedScreen determineScreen(final BreakoutGame game) throws Exception {
+        final ScreenOptions screenOptions = this.screenMap.get(this.currentGuiState);
+
         final Constructor<?> constructor =
-                this.screenMap.get(this.currentGuiState).getScreenClass().getConstructor(ExtendedScreen.class);
+                screenOptions.getScreenClass().getConstructor(game.getClass());
         return (ExtendedScreen) constructor.newInstance(game);
     }
 

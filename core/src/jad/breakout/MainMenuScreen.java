@@ -10,15 +10,13 @@ import jad.breakout.util.ExtendedScreen;
 import jad.breakout.util.ScreenOptions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainMenuScreen extends ExtendedScreen {
 
     private final OrthographicCamera camera;
-
-    private final SpriteBatch spriteBatch;
-
-    private final Texture texture;
 
     public static ScreenOptions getScreenOptions() {
         return new ScreenOptions(MainMenuScreen.class, MainMenuScreen.getStateChangeKeys());
@@ -33,10 +31,17 @@ public class MainMenuScreen extends ExtendedScreen {
 
     public MainMenuScreen(final BreakoutGame breakoutGame) {
         super(breakoutGame);
-        this.spriteBatch = breakoutGame.getSpriteBatch();
         this.camera = new OrthographicCamera();
         this.camera.setToOrtho(false, breakoutGame.getWIDTH(), breakoutGame.getHEIGHT());
-        this.texture = breakoutGame.getImg();
+
+        this.textures = this.initializeTextures();
+    }
+
+    protected Map<String, Texture> initializeTextures() {
+        final Map<String, Texture> textures = new HashMap<>();
+        textures.put("badLogic", new Texture(Gdx.files.internal("badlogic.jpg")));
+
+        return textures;
     }
 
     @Override
@@ -50,15 +55,18 @@ public class MainMenuScreen extends ExtendedScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         this.camera.update();
 
-        this.spriteBatch.setProjectionMatrix(this.camera.combined);
-        this.spriteBatch.begin();
-        this.spriteBatch.draw(
-                   this.texture,
+        final SpriteBatch spriteBatch = this.game.getSpriteBatch();
+        final Texture texture = this.textures.get("badLogic");
+
+        spriteBatch.setProjectionMatrix(this.camera.combined);
+        spriteBatch.begin();
+        spriteBatch.draw(
+                   texture,
                 this.game.getWIDTH() / 2,
                 this.game.getHEIGHT() / 2,
                 100,
                 100);
-        this.spriteBatch.end();
+        spriteBatch.end();
     }
 
     @Override
@@ -83,6 +91,8 @@ public class MainMenuScreen extends ExtendedScreen {
 
     @Override
     public void dispose() {
-
+        this.textures.entrySet().forEach(es -> {
+            es.getValue().dispose();
+        });
     }
 }

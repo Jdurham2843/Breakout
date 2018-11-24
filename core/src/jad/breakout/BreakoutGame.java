@@ -11,7 +11,6 @@ public class BreakoutGame extends Game {
     private final int HEIGHT;
 
 	private SpriteBatch spriteBatch;
-	private Texture img;
 
 	private final GuiStateMachine guiStateMachine;
 
@@ -24,8 +23,11 @@ public class BreakoutGame extends Game {
 	@Override
 	public void create () {
 		spriteBatch = new SpriteBatch();
-		img = new Texture(Gdx.files.internal("badlogic.jpg"));
-		this.screen = new MainMenuScreen(this);
+
+		try {
+            this.screen = this.guiStateMachine.determineScreen(this);
+        } catch (Exception e) {
+        }
 	}
 
 	@Override
@@ -36,7 +38,6 @@ public class BreakoutGame extends Game {
 	@Override
 	public void dispose () {
 		spriteBatch.dispose();
-		img.dispose();
 	}
 
     public int getWIDTH() {
@@ -49,10 +50,6 @@ public class BreakoutGame extends Game {
 
     public SpriteBatch getSpriteBatch() {
         return spriteBatch;
-    }
-
-    public Texture getImg() {
-        return img;
     }
 
 }
