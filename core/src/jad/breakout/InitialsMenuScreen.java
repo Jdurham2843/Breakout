@@ -24,15 +24,15 @@ public class InitialsMenuScreen extends ExtendedScreen {
 
     private static List<Integer> getStateChangeKeys() {
         final List<Integer> stateChangeKeys = new ArrayList<>();
-        stateChangeKeys.add(Input.Keys.W);
+        stateChangeKeys.add(Input.Keys.S);
 
         return stateChangeKeys;
     }
 
-    public InitialsMenuScreen(final BreakoutGame breakoutGame) {
-        super(breakoutGame);
+    public InitialsMenuScreen(final BreakoutApplication breakoutApplication) {
+        super(breakoutApplication);
         this.camera = new OrthographicCamera();
-        this.camera.setToOrtho(false, breakoutGame.getWIDTH(), breakoutGame.getHEIGHT());
+        this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         this.textures = this.initializeTextures();
     }
@@ -62,13 +62,13 @@ public class InitialsMenuScreen extends ExtendedScreen {
         spriteBatch.begin();
         spriteBatch.draw(
                 texture,
-                this.game.getWIDTH() / 2,
-                this.game.getHEIGHT() / 2,
+                Gdx.graphics.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2,
                 100,
                 100);
         spriteBatch.end();
 
-        if (Gdx.input.isTouched()) {
+        if (this.game.getGuiStateMachine().shouldChangeState()) {
             this.game.getGuiStateMachine().determineScreen(this.game);
         }
     }

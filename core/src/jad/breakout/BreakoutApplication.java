@@ -6,17 +6,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import jad.breakout.util.GuiStateMachine;
 
-public class BreakoutGame extends Game {
-    private final int WIDTH;
-    private final int HEIGHT;
+public class BreakoutApplication extends Game {
 
 	private SpriteBatch spriteBatch;
 
 	private final GuiStateMachine guiStateMachine;
 
-	public BreakoutGame(final int width, final int height) {
-	    this.HEIGHT = height;
-	    this.WIDTH = width;
+	public BreakoutApplication() {
 	    this.guiStateMachine = new GuiStateMachine();
     }
 	
@@ -36,14 +32,6 @@ public class BreakoutGame extends Game {
 	public void dispose () {
 		spriteBatch.dispose();
 	}
-
-    public int getWIDTH() {
-        return WIDTH;
-    }
-
-    public int getHEIGHT() {
-        return HEIGHT;
-    }
 
     public SpriteBatch getSpriteBatch() {
         return spriteBatch;

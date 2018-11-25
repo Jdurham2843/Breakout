@@ -2,7 +2,7 @@ package jad.breakout.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import jad.breakout.BreakoutGame;
+import jad.breakout.BreakoutApplication;
 
 public class DesktopLauncher {
 	private static final int WIDTH = 800;
@@ -15,6 +15,6 @@ public class DesktopLauncher {
 		config.width = WIDTH;
 		config.height = HEIGHT;
 
-		new LwjglApplication(new BreakoutGame(WIDTH, HEIGHT), config);
+		new LwjglApplication(new BreakoutApplication(), config);
 	}
 }

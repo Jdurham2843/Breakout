@@ -29,10 +29,10 @@ public class MainMenuScreen extends ExtendedScreen {
         return stateChangeKeys;
     }
 
-    public MainMenuScreen(final BreakoutGame breakoutGame) {
-        super(breakoutGame);
+    public MainMenuScreen(final BreakoutApplication breakoutApplication) {
+        super(breakoutApplication);
         this.camera = new OrthographicCamera();
-        this.camera.setToOrtho(false, breakoutGame.getWIDTH(), breakoutGame.getHEIGHT());
+        this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         this.textures = this.initializeTextures();
     }
@@ -62,13 +62,13 @@ public class MainMenuScreen extends ExtendedScreen {
         spriteBatch.begin();
         spriteBatch.draw(
                    texture,
-                this.game.getWIDTH() / 2,
-                this.game.getHEIGHT() / 2,
+                Gdx.graphics.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2,
                 100,
                 100);
         spriteBatch.end();
 
-        if (Gdx.input.isTouched()) {
+        if (this.game.getGuiStateMachine().shouldChangeState()) {
             this.game.getGuiStateMachine().determineScreen(this.game);
         }
     }

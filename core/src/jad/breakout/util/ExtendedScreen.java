@@ -1,17 +1,17 @@
 package jad.breakout.util;
 
 import com.badlogic.gdx.graphics.Texture;
-import jad.breakout.BreakoutGame;
+import jad.breakout.BreakoutApplication;
 
 import java.util.Map;
 
 public abstract class ExtendedScreen implements com.badlogic.gdx.Screen {
 
-    protected final BreakoutGame game;
+    protected final BreakoutApplication game;
 
     protected Map<String, Texture> textures;
 
-    public ExtendedScreen(final BreakoutGame game) {
+    public ExtendedScreen(final BreakoutApplication game) {
         this.game = game;
     }
 

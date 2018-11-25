@@ -1,7 +1,7 @@
 package jad.breakout.util;
 
 import com.badlogic.gdx.Gdx;
-import jad.breakout.BreakoutGame;
+import jad.breakout.BreakoutApplication;
 import jad.breakout.GuiState;
 import jad.breakout.InitialsMenuScreen;
 import jad.breakout.MainMenuScreen;
@@ -32,7 +32,7 @@ public class GuiStateMachine {
                 .anyMatch(key -> Gdx.input.isButtonPressed(key));
     }
 
-    public void determineScreen(final BreakoutGame game)  {
+    public void determineScreen(final BreakoutApplication game)  {
         if (true) {
             switch (this.currentGuiState) {
                 case MainMenu:
