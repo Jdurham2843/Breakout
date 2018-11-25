@@ -24,7 +24,7 @@ public class BreakoutGame extends Game {
 	public void create () {
 		spriteBatch = new SpriteBatch();
 
-        this.screen = this.guiStateMachine.determineScreen(this);
+        this.guiStateMachine.determineScreen(this);
 	}
 
 	@Override

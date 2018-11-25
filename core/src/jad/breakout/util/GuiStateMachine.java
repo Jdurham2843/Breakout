@@ -32,7 +32,7 @@ public class GuiStateMachine {
                 .anyMatch(key -> Gdx.input.isButtonPressed(key));
     }
 
-    public ExtendedScreen determineScreen(final BreakoutGame game)  {
+    public void determineScreen(final BreakoutGame game)  {
         if (true) {
             switch (this.currentGuiState) {
                 case MainMenu:
@@ -49,9 +49,11 @@ public class GuiStateMachine {
         try {
             final Constructor<?> constructor =
                     screenOptions.getScreenClass().getConstructor(game.getClass());
-            return (ExtendedScreen) constructor.newInstance(game);
+
+            final ExtendedScreen screen = (ExtendedScreen) constructor.newInstance(game);
+            game.setScreen(screen);
         } catch (Exception e) {
-            return null;
+
         }
     }
 
