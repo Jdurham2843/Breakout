@@ -1,4 +1,5 @@
 ## Breakout
 
 ### Current TODO:
-Get keyboard input working. Currently, only touch (mouse controls) are working.
+- need to polish collision (ball seems to clip the paddle and edge of the screen)
+- add ability to pass update logic into a gameObject ie: void update(updateFunc: lambda)
