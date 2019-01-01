@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import jad.breakout.model.Ball;
+import jad.breakout.model.Paddle;
 import jad.breakout.util.EntityManager;
 import jad.breakout.util.ExtendedScreen;
 import jad.breakout.util.ScreenOptions;
@@ -50,10 +51,12 @@ public class GameScreen extends ExtendedScreen {
         EntityManager.update();
 
         final Ball ball = EntityManager.breakout.getBall();
+        final Paddle paddle = EntityManager.breakout.getPaddle();
         final ShapeRenderer shapeRenderer = new ShapeRenderer();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setProjectionMatrix(this.camera.combined);
         ball.render(shapeRenderer);
+        paddle.render(shapeRenderer);
         shapeRenderer.end();
 
         if (this.game.getGuiStateMachine().shouldChangeState()) {

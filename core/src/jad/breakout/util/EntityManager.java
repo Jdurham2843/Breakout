@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import jad.breakout.model.Ball;
 import jad.breakout.model.Breakout;
 import jad.breakout.model.GameObject;
+import jad.breakout.model.Paddle;
 
 public class EntityManager {
 
@@ -38,7 +39,12 @@ public class EntityManager {
         final Vector2 ballVector = new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         final Ball ball = new Ball(ballVector, -8.0f, -6.0f);
 
-        breakout = new Breakout(null, ball, null);
+        final Paddle paddle = new Paddle(
+                new Vector2(
+                        (Gdx.graphics.getWidth() / 2) - (Paddle.WIDTH / 2),
+                        0));
+
+        breakout = new Breakout(null, ball, paddle);
     }
 
     private static void moveBackOntoScreen(final GameObject gameObject) {
