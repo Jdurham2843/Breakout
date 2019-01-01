@@ -1,6 +1,7 @@
 package jad.breakout.util;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import jad.breakout.model.Ball;
 import jad.breakout.model.Breakout;
@@ -28,6 +29,14 @@ public class EntityManager {
             ball.setxVelocity(-ball.getxVelocity());
         }
         ball.update();
+
+        final Paddle paddle = breakout.getPaddle();
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            paddle.getPosition().x -= 10;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            paddle.getPosition().x += 10;
+        }
+        moveBackOntoScreen(paddle);
 
     }
 
