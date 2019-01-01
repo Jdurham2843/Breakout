@@ -14,12 +14,23 @@ public class EntityManager {
             return;
         }
 
-        if (ball.getPosition().y + ball.height == Gdx.graphics.getHeight() ||
-                ball.getPosition().y == 0) {
+        if (ball.getPosition().y + ball.height >  Gdx.graphics.getHeight()) {
+            ball.getPosition().y = Gdx.graphics.getHeight() - ball.height;
+        } else if (ball.getPosition().y  <  0) {
+            ball.getPosition().y = 0;
+        }
+
+        if (ball.getPosition().y + ball.height == Gdx.graphics.getHeight() || ball.getPosition().y == 0) {
             ball.setyVelocity(-ball.getyVelocity());
         }
-        if (ball.getPosition().x + ball.width == Gdx.graphics.getWidth() ||
-                ball.getPosition().x == 0) {
+
+        if (ball.getPosition().x + ball.width > Gdx.graphics.getWidth()) {
+            ball.getPosition().x = Gdx.graphics.getWidth() - ball.width;
+        } else if (ball.getPosition().x  < 0) {
+            ball.getPosition().x = 0;
+        }
+
+        if (ball.getPosition().x + ball.width == Gdx.graphics.getWidth() || ball.getPosition().x == 0) {
             ball.setxVelocity(-ball.getxVelocity());
         }
         ball.update();
@@ -32,7 +43,7 @@ public class EntityManager {
 
     private static void create() {
         final Vector2 ballVector = new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-        ball = new Ball(ballVector, -5.0, -1.0);
+        ball = new Ball(ballVector, -8.0, -6.0);
     }
 
     public static Ball getBall() {

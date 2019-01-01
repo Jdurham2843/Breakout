@@ -31,10 +31,6 @@ public class Ball  {
         return position;
     }
 
-    public void setPosition(Vector2 position) {
-        this.position = position;
-    }
-
     public Double getxVelocity() {
         return xVelocity;
     }
