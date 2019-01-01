@@ -2,6 +2,7 @@ package jad.breakout.model;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Ball  implements GameObject {
@@ -31,7 +32,7 @@ public class Ball  implements GameObject {
 
     public void render(final ShapeRenderer shapeRenderer) {
         shapeRenderer.setColor(color);
-        shapeRenderer.circle(this.getPosition().x, this.getPosition().y, Ball.WIDTH / 2.0f);
+        shapeRenderer.circle(this.getVector().x, this.getVector().y, Ball.WIDTH / 2.0f);
     }
 
     @Override
@@ -45,8 +46,13 @@ public class Ball  implements GameObject {
     }
 
     @Override
-    public Vector2 getPosition() {
+    public Vector2 getVector() {
         return position;
+    }
+
+    @Override
+    public Rectangle getPosition() {
+        return new Rectangle(position.x, position.y, WIDTH, HEIGHT);
     }
 
     public float getxVelocity() {

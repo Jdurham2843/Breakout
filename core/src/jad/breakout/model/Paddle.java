@@ -1,8 +1,8 @@
 package jad.breakout.model;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Paddle implements GameObject{
@@ -21,11 +21,16 @@ public class Paddle implements GameObject{
 
     public void render(final ShapeRenderer shapeRenderer) {
         shapeRenderer.setColor(color);
-        shapeRenderer.rect(this.getPosition().x, this.getPosition().y, Paddle.WIDTH, Paddle.HEIGHT);
+        shapeRenderer.rect(this.getVector().x, this.getVector().y, Paddle.WIDTH, Paddle.HEIGHT);
     }
 
-    public Vector2 getPosition() {
+    public Vector2 getVector() {
         return position;
+    }
+
+    @Override
+    public Rectangle getPosition() {
+        return new Rectangle(position.x, position.y, WIDTH, HEIGHT);
     }
 
     @Override

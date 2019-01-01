@@ -18,23 +18,26 @@ public class EntityManager {
             return;
         }
         final Ball ball = breakout.getBall();
+        final Paddle paddle = breakout.getPaddle();
 
         moveBackOntoScreen(ball);
 
-        if (ball.getPosition().y + ball.HEIGHT == Gdx.graphics.getHeight() || ball.getPosition().y == 0) {
+        if (ball.getPosition().overlaps(paddle.getPosition())) {
+            ball.getPosition().y = paddle.getHeight();
+            ball.setyVelocity(-ball.getyVelocity());
+        } else if (ball.getVector().y + ball.HEIGHT == Gdx.graphics.getHeight() || ball.getVector().y == 0) {
             ball.setyVelocity(-ball.getyVelocity());
         }
 
-        if (ball.getPosition().x + ball.WIDTH == Gdx.graphics.getWidth() || ball.getPosition().x == 0) {
+        if (ball.getVector().x + ball.WIDTH == Gdx.graphics.getWidth() || ball.getVector().x == 0) {
             ball.setxVelocity(-ball.getxVelocity());
         }
         ball.update();
 
-        final Paddle paddle = breakout.getPaddle();
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            paddle.getPosition().x -= 10;
+            paddle.getVector().x -= 10;
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            paddle.getPosition().x += 10;
+            paddle.getVector().x += 10;
         }
         moveBackOntoScreen(paddle);
 
@@ -57,16 +60,16 @@ public class EntityManager {
     }
 
     private static void moveBackOntoScreen(final GameObject gameObject) {
-        if (gameObject.getPosition().y + gameObject.getHeight() >  Gdx.graphics.getHeight()) {
-            gameObject.getPosition().y = Gdx.graphics.getHeight() - gameObject.getHeight();
-        } else if (gameObject.getPosition().y  <  0) {
-            gameObject.getPosition().y = 0;
+        if (gameObject.getVector().y + gameObject.getHeight() >  Gdx.graphics.getHeight()) {
+            gameObject.getVector().y = Gdx.graphics.getHeight() - gameObject.getHeight();
+        } else if (gameObject.getVector().y  <  0) {
+            gameObject.getVector().y = 0;
         }
 
-        if (gameObject.getPosition().x + gameObject.getWidth() > Gdx.graphics.getWidth()) {
-            gameObject.getPosition().x = Gdx.graphics.getWidth() - gameObject.getWidth();
-        } else if (gameObject.getPosition().x  < 0) {
-            gameObject.getPosition().x = 0;
+        if (gameObject.getVector().x + gameObject.getWidth() > Gdx.graphics.getWidth()) {
+            gameObject.getVector().x = Gdx.graphics.getWidth() - gameObject.getWidth();
+        } else if (gameObject.getVector().x  < 0) {
+            gameObject.getVector().x = 0;
         }
     }
 
