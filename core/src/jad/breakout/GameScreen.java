@@ -58,12 +58,11 @@ public class GameScreen extends ExtendedScreen {
         this.camera.update();
         EntityManager.update();
 
-        final Ball ball = EntityManager.getBall();
+        final Ball ball = EntityManager.breakout.getBall();
         final ShapeRenderer shapeRenderer = new ShapeRenderer();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setProjectionMatrix(this.camera.combined);
-        shapeRenderer.setColor(1, 0, 0, 1);
-        shapeRenderer.rect(ball.getPosition().x, ball.getPosition().y, Ball.width, Ball.height);
+        ball.render(shapeRenderer);
         shapeRenderer.end();
 
         if (this.game.getGuiStateMachine().shouldChangeState()) {

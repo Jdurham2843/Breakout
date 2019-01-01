@@ -3,16 +3,18 @@ package jad.breakout.util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import jad.breakout.model.Ball;
+import jad.breakout.model.Breakout;
 
 public class EntityManager {
 
-    private static  Ball ball;
+    public static Breakout breakout;
 
     public static void update() {
-        if (ball == null) {
+        if (breakout == null) {
             create();
             return;
         }
+        final Ball ball = breakout.getBall();
 
         if (ball.getPosition().y + ball.height >  Gdx.graphics.getHeight()) {
             ball.getPosition().y = Gdx.graphics.getHeight() - ball.height;
@@ -43,11 +45,9 @@ public class EntityManager {
 
     private static void create() {
         final Vector2 ballVector = new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-        ball = new Ball(ballVector, -8.0, -6.0);
-    }
+        final Ball ball = new Ball(ballVector, -8.0, -6.0);
 
-    public static Ball getBall() {
-        return ball;
+        breakout = new Breakout(null, ball, null);
     }
 
 }
