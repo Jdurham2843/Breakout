@@ -35,15 +35,6 @@ public class GameScreen extends ExtendedScreen {
         super(breakoutApplication);
         this.camera = new OrthographicCamera();
         this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
-        this.textures = this.initializeTextures();
-    }
-
-    protected Map<String, Texture> initializeTextures() {
-        final Map<String, Texture> textures = new HashMap<>();
-        textures.put("badLogic", new Texture(Gdx.files.internal("badlogic.jpg")));
-
-        return textures;
     }
 
     @Override
@@ -92,8 +83,6 @@ public class GameScreen extends ExtendedScreen {
 
     @Override
     public void dispose() {
-        this.textures.entrySet().forEach(es -> {
-            es.getValue().dispose();
-        });
+
     }
 }
