@@ -6,9 +6,9 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Ball  implements GameObject {
 
-    public static final int WIDTH = 50;
+    public static final int WIDTH = 20;
 
-    public static final int HEIGHT = 50;
+    public static final int HEIGHT = 20;
 
     private static final Color color = new Color(1, 0, 0, 1);
 
@@ -31,7 +31,7 @@ public class Ball  implements GameObject {
 
     public void render(final ShapeRenderer shapeRenderer) {
         shapeRenderer.setColor(color);
-        shapeRenderer.rect(this.getPosition().x, this.getPosition().y, Ball.WIDTH, Ball.HEIGHT);
+        shapeRenderer.circle(this.getPosition().x, this.getPosition().y, Ball.WIDTH / 2.0f);
     }
 
     @Override

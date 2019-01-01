@@ -63,7 +63,7 @@ public class GameScreen extends ExtendedScreen {
 
     @Override
     public void resize(int width, int height) {
-
+        this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
     @Override
