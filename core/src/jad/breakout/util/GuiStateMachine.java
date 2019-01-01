@@ -1,10 +1,7 @@
 package jad.breakout.util;
 
 import com.badlogic.gdx.Gdx;
-import jad.breakout.BreakoutApplication;
-import jad.breakout.GuiState;
-import jad.breakout.InitialsMenuScreen;
-import jad.breakout.MainMenuScreen;
+import jad.breakout.*;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
@@ -19,7 +16,7 @@ public class GuiStateMachine {
     static {
         screenMap.put(GuiState.MainMenu, MainMenuScreen.getScreenOptions());
         screenMap.put(GuiState.InitialsMenu, InitialsMenuScreen.getScreenOptions());
-        screenMap.put(GuiState.GameScreen, null);
+        screenMap.put(GuiState.GameScreen, GameScreen.getScreenOptions());
         screenMap.put(GuiState.PauseScreen, null);
     }
 
@@ -39,7 +36,7 @@ public class GuiStateMachine {
                     this.currentGuiState = GuiState.InitialsMenu;
                     break;
                 case InitialsMenu:
-                    this.currentGuiState = GuiState.MainMenu;
+                    this.currentGuiState = GuiState.GameScreen;
                     break;
             }
         }
