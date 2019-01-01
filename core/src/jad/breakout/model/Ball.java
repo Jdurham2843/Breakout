@@ -16,11 +16,11 @@ public class Ball  {
 
     private Vector2 position;
 
-    private Double xVelocity;
+    private float xVelocity;
 
-    private Double yVelocity;
+    private float yVelocity;
 
-    public Ball(Vector2 position, Double xVelocity, Double yVelocity) {
+    public Ball(Vector2 position, float xVelocity, float yVelocity) {
         this.position = position;
         this.xVelocity = xVelocity;
         this.yVelocity = yVelocity;
@@ -40,19 +40,19 @@ public class Ball  {
         shapeRenderer.rect(this.getPosition().x, this.getPosition().y, Ball.width, Ball.height);
     }
 
-    public Double getxVelocity() {
+    public float getxVelocity() {
         return xVelocity;
     }
 
-    public void setxVelocity(Double xVelocity) {
+    public void setxVelocity(float xVelocity) {
         this.xVelocity = xVelocity;
     }
 
-    public Double getyVelocity() {
+    public float getyVelocity() {
         return yVelocity;
     }
 
-    public void setyVelocity(Double yVelocity) {
+    public void setyVelocity(float yVelocity) {
         this.yVelocity = yVelocity;
     }
 }

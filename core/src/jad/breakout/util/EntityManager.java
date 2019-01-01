@@ -45,7 +45,7 @@ public class EntityManager {
 
     private static void create() {
         final Vector2 ballVector = new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-        final Ball ball = new Ball(ballVector, -8.0, -6.0);
+        final Ball ball = new Ball(ballVector, -8.0f, -6.0f);
 
         breakout = new Breakout(null, ball, null);
     }
