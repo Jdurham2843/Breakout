@@ -1,7 +1,6 @@
 package jad.breakout.util;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import jad.breakout.model.Ball;
 import jad.breakout.model.Breakout;
@@ -25,21 +24,11 @@ public class EntityManager {
         if (ball.getPosition().overlaps(paddle.getPosition())) {
             ball.getPosition().y = paddle.getHeight();
             ball.setyVelocity(-ball.getyVelocity());
-        } else if (ball.getVector().y + ball.HEIGHT == Gdx.graphics.getHeight() || ball.getVector().y == 0) {
-            ball.setyVelocity(-ball.getyVelocity());
-        }
-
-        if (ball.getVector().x + ball.WIDTH == Gdx.graphics.getWidth() || ball.getVector().x == 0) {
-            ball.setxVelocity(-ball.getxVelocity());
         }
         ball.update();
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            paddle.getVector().x -= 10;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            paddle.getVector().x += 10;
-        }
         moveBackOntoScreen(paddle);
+        paddle.update();
 
     }
 

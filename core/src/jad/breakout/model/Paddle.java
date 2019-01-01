@@ -1,5 +1,7 @@
 package jad.breakout.model;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -19,6 +21,7 @@ public class Paddle implements GameObject{
         this.position = position;
     }
 
+    @Override
     public void render(final ShapeRenderer shapeRenderer) {
         shapeRenderer.setColor(color);
         shapeRenderer.rect(this.getVector().x, this.getVector().y, Paddle.WIDTH, Paddle.HEIGHT);
@@ -41,6 +44,15 @@ public class Paddle implements GameObject{
     @Override
     public int getWidth() {
         return WIDTH;
+    }
+
+    @Override
+    public void update() {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            getVector().x -= 10;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            getVector().x += 10;
+        }
     }
 
 }

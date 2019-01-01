@@ -24,7 +24,7 @@ public class InitialsMenuScreen extends ExtendedScreen {
 
     private static List<Integer> getStateChangeKeys() {
         final List<Integer> stateChangeKeys = new ArrayList<>();
-        stateChangeKeys.add(Input.Keys.S);
+        stateChangeKeys.add(Input.Keys.ENTER);
 
         return stateChangeKeys;
     }

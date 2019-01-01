@@ -26,7 +26,7 @@ public class GuiStateMachine {
 
     public boolean shouldChangeState() {
         return screenMap.get(this.currentGuiState).getKeys().stream()
-                .anyMatch(key -> Gdx.input.isButtonPressed(key));
+                .anyMatch(key -> Gdx.input.isKeyPressed(key));
     }
 
     public void determineScreen(final BreakoutApplication game)  {
