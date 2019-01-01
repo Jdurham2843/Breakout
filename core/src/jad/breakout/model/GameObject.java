@@ -4,10 +4,10 @@ import com.badlogic.gdx.math.Vector2;
 
 public interface GameObject {
 
-    public Vector2 getPosition();
+    Vector2 getPosition();
 
-    public int getHeight();
+    int getHeight();
 
-    public int getWidth();
+    int getWidth();
 
 }
