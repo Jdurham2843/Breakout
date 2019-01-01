@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import jad.breakout.model.Ball;
 import jad.breakout.model.Breakout;
+import jad.breakout.model.GameObject;
 
 public class EntityManager {
 
@@ -16,23 +17,13 @@ public class EntityManager {
         }
         final Ball ball = breakout.getBall();
 
-        if (ball.getPosition().y + ball.height >  Gdx.graphics.getHeight()) {
-            ball.getPosition().y = Gdx.graphics.getHeight() - ball.height;
-        } else if (ball.getPosition().y  <  0) {
-            ball.getPosition().y = 0;
-        }
+        moveBackOntoScreen(ball);
 
-        if (ball.getPosition().y + ball.height == Gdx.graphics.getHeight() || ball.getPosition().y == 0) {
+        if (ball.getPosition().y + ball.HEIGHT == Gdx.graphics.getHeight() || ball.getPosition().y == 0) {
             ball.setyVelocity(-ball.getyVelocity());
         }
 
-        if (ball.getPosition().x + ball.width > Gdx.graphics.getWidth()) {
-            ball.getPosition().x = Gdx.graphics.getWidth() - ball.width;
-        } else if (ball.getPosition().x  < 0) {
-            ball.getPosition().x = 0;
-        }
-
-        if (ball.getPosition().x + ball.width == Gdx.graphics.getWidth() || ball.getPosition().x == 0) {
+        if (ball.getPosition().x + ball.WIDTH == Gdx.graphics.getWidth() || ball.getPosition().x == 0) {
             ball.setxVelocity(-ball.getxVelocity());
         }
         ball.update();
@@ -48,6 +39,20 @@ public class EntityManager {
         final Ball ball = new Ball(ballVector, -8.0f, -6.0f);
 
         breakout = new Breakout(null, ball, null);
+    }
+
+    private static void moveBackOntoScreen(final GameObject gameObject) {
+        if (gameObject.getPosition().y + gameObject.getHeight() >  Gdx.graphics.getHeight()) {
+            gameObject.getPosition().y = Gdx.graphics.getHeight() - gameObject.getHeight();
+        } else if (gameObject.getPosition().y  <  0) {
+            gameObject.getPosition().y = 0;
+        }
+
+        if (gameObject.getPosition().x + gameObject.getWidth() > Gdx.graphics.getWidth()) {
+            gameObject.getPosition().x = Gdx.graphics.getWidth() - gameObject.getWidth();
+        } else if (gameObject.getPosition().x  < 0) {
+            gameObject.getPosition().x = 0;
+        }
     }
 
 }
