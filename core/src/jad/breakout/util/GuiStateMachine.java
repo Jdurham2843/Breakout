@@ -30,15 +30,13 @@ public class GuiStateMachine {
     }
 
     public void determineScreen(final BreakoutApplication game)  {
-        if (true) {
-            switch (this.currentGuiState) {
-                case MainMenu:
-                    this.currentGuiState = GuiState.InitialsMenu;
-                    break;
-                case InitialsMenu:
-                    this.currentGuiState = GuiState.GameScreen;
-                    break;
-            }
+        switch (this.currentGuiState) {
+            case MainMenu:
+                this.currentGuiState = GuiState.InitialsMenu;
+                break;
+            case InitialsMenu:
+                this.currentGuiState = GuiState.GameScreen;
+                break;
         }
 
         final ScreenOptions screenOptions = screenMap.get(this.currentGuiState);
