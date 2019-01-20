@@ -17,6 +17,8 @@ public class Paddle implements GameObject{
 
     private final Vector2 position;
 
+    private float xVelocity = 600;
+
     public Paddle(Vector2 position) {
         this.position = position;
     }
@@ -50,9 +52,9 @@ public class Paddle implements GameObject{
     public void update(float deltaTime) {
         moveBackOntoScreen();
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            getVector().x -= 600.0f * deltaTime;
+            getVector().x -= this.xVelocity * deltaTime;
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            getVector().x += 600.0f * deltaTime;
+            getVector().x += this.xVelocity * deltaTime;
         }
     }
 
