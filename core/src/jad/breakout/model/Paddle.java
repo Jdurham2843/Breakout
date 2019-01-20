@@ -47,11 +47,26 @@ public class Paddle implements GameObject{
     }
 
     @Override
-    public void update() {
+    public void update(float deltaTime) {
+        moveBackOntoScreen();
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            getVector().x -= 10;
+            getVector().x -= 600.0f * deltaTime;
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            getVector().x += 10;
+            getVector().x += 600.0f * deltaTime;
+        }
+    }
+
+    private void moveBackOntoScreen() {
+        if (getVector().y + getHeight() >  Gdx.graphics.getHeight()) {
+            getVector().y = Gdx.graphics.getHeight() - getHeight();
+        } else if (getVector().y  <  0) {
+            getVector().y = 0;
+        }
+
+        if (getVector().x + getWidth() > Gdx.graphics.getWidth()) {
+            getVector().x = Gdx.graphics.getWidth() - getWidth();
+        } else if (getVector().x  < 0) {
+            getVector().x = 0;
         }
     }
 

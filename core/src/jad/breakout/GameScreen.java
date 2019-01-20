@@ -48,7 +48,10 @@ public class GameScreen extends ExtendedScreen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         this.camera.update();
-        EntityManager.update();
+
+        if (EntityManager.breakout == null) {
+            EntityManager.create();
+        }
 
         final Ball ball = EntityManager.breakout.getBall();
         final Paddle paddle = EntityManager.breakout.getPaddle();
@@ -58,6 +61,8 @@ public class GameScreen extends ExtendedScreen {
         ball.render(shapeRenderer);
         paddle.render(shapeRenderer);
         shapeRenderer.end();
+
+        EntityManager.update();
 
         if (this.game.getGuiStateMachine().shouldChangeState()) {
             this.game.getGuiStateMachine().determineScreen(this.game);

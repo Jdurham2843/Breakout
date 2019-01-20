@@ -14,7 +14,7 @@ public interface GameObject {
 
     int getWidth();
 
-    void update();
+    void update(float deltaTime);
 
     void render(ShapeRenderer shapeRenderer);
 

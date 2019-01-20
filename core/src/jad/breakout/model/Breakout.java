@@ -1,5 +1,7 @@
 package jad.breakout.model;
 
+import com.badlogic.gdx.Gdx;
+
 import java.util.List;
 
 public class Breakout {
@@ -27,4 +29,5 @@ public class Breakout {
     public Paddle getPaddle() {
         return paddle;
     }
+
 }

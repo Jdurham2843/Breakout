@@ -12,33 +12,23 @@ public class EntityManager {
     public static Breakout breakout;
 
     public static void update() {
-        if (breakout == null) {
-            create();
-            return;
+        float deltaTime = Gdx.graphics.getDeltaTime();
+        breakout.getBall().update(deltaTime);
+        breakout.getPaddle().update(deltaTime);
+
+        if (breakout.getBall().getPosition().overlaps(breakout.getPaddle().getPosition())) {
+            breakout.getBall().getPosition().y = breakout.getPaddle().getHeight();
+            breakout.getBall().setyVelocity(-breakout.getBall().getyVelocity());
         }
-        final Ball ball = breakout.getBall();
-        final Paddle paddle = breakout.getPaddle();
-
-        moveBackOntoScreen(ball);
-
-        if (ball.getPosition().overlaps(paddle.getPosition())) {
-            ball.getPosition().y = paddle.getHeight();
-            ball.setyVelocity(-ball.getyVelocity());
-        }
-        ball.update();
-
-        moveBackOntoScreen(paddle);
-        paddle.update();
-
     }
 
     public static void reset() {
         create();
     }
 
-    private static void create() {
+    public static void create() {
         final Vector2 ballVector = new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-        final Ball ball = new Ball(ballVector, -8.0f, -6.0f);
+        final Ball ball = new Ball(ballVector);
 
         final Paddle paddle = new Paddle(
                 new Vector2(
@@ -46,20 +36,6 @@ public class EntityManager {
                         0));
 
         breakout = new Breakout(null, ball, paddle);
-    }
-
-    private static void moveBackOntoScreen(final GameObject gameObject) {
-        if (gameObject.getVector().y + gameObject.getHeight() >  Gdx.graphics.getHeight()) {
-            gameObject.getVector().y = Gdx.graphics.getHeight() - gameObject.getHeight();
-        } else if (gameObject.getVector().y  <  0) {
-            gameObject.getVector().y = 0;
-        }
-
-        if (gameObject.getVector().x + gameObject.getWidth() > Gdx.graphics.getWidth()) {
-            gameObject.getVector().x = Gdx.graphics.getWidth() - gameObject.getWidth();
-        } else if (gameObject.getVector().x  < 0) {
-            gameObject.getVector().x = 0;
-        }
     }
 
 }

@@ -20,13 +20,15 @@ public class Ball implements GameObject {
 
     private float yVelocity;
 
-    public Ball(Vector2 position, float xVelocity, float yVelocity) {
+    public Ball(Vector2 position) {
         this.position = position;
-        this.xVelocity = xVelocity;
-        this.yVelocity = yVelocity;
+        this.xVelocity = -500.0f;
+        this.yVelocity = - 350.0f;
     }
 
-    public void update() {
+    @Override
+    public void update(float deltaTime) {
+        this.moveBackOnScreen();
         if (getVector().y + HEIGHT == Gdx.graphics.getHeight() || getVector().y == 0) {
             setyVelocity(-getyVelocity());
         }
@@ -35,8 +37,22 @@ public class Ball implements GameObject {
             setxVelocity(-getxVelocity());
         }
 
-        this.position.y += this.yVelocity;
-        this.position.x += this.xVelocity;
+        this.position.y += this.yVelocity * deltaTime;
+        this.position.x += this.xVelocity * deltaTime;
+    }
+
+    private void moveBackOnScreen() {
+        if (this.getVector().y + this.getHeight() >  Gdx.graphics.getHeight()) {
+            this.getVector().y = Gdx.graphics.getHeight() - this.getHeight();
+        } else if (this.getVector().y  <  0) {
+            this.getVector().y = 0;
+        }
+
+        if (this.getVector().x + this.getWidth() > Gdx.graphics.getWidth()) {
+            this.getVector().x = Gdx.graphics.getWidth() - this.getWidth();
+        } else if (this.getVector().x < 0) {
+            this.getVector().x = 0;
+        }
     }
 
     @Override
