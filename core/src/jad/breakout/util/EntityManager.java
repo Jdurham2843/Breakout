@@ -1,10 +1,12 @@
 package jad.breakout.util;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import jad.breakout.model.Ball;
+import jad.breakout.model.Block;
 import jad.breakout.model.Breakout;
-import jad.breakout.model.GameObject;
 import jad.breakout.model.Paddle;
 
 public class EntityManager {
@@ -35,7 +37,24 @@ public class EntityManager {
                         (Gdx.graphics.getWidth() / 2) - (Paddle.WIDTH / 2),
                         0));
 
-        breakout = new Breakout(null, ball, paddle);
+        final Array<Block> blocks = initializeBlocks();
+
+        breakout = new Breakout(blocks, ball, paddle);
+    }
+
+    private static Array<Block> initializeBlocks() {
+        final Array<Block> blocks = new Array<>();
+
+        int cursor = 0;
+        while (cursor < Gdx.graphics.getWidth() + Block.WIDTH) {
+            blocks.add(
+                    new Block(
+                            new Color(0, 1, 0, 1),
+                            new Vector2(cursor, Gdx.graphics.getHeight() / 2)));
+            cursor += Block.WIDTH;
+        }
+
+        return blocks;
     }
 
 }
