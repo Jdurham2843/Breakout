@@ -60,6 +60,9 @@ public class GameScreen extends ExtendedScreen {
         shapeRenderer.setProjectionMatrix(this.camera.combined);
         ball.render(shapeRenderer);
         paddle.render(shapeRenderer);
+        EntityManager.breakout.getBlocks().forEach(block -> {
+            block.render(shapeRenderer);
+        });
         shapeRenderer.end();
 
         EntityManager.update();
