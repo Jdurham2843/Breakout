@@ -9,6 +9,8 @@ import jad.breakout.model.Block;
 import jad.breakout.model.Breakout;
 import jad.breakout.model.Paddle;
 
+import java.util.Random;
+
 public class EntityManager {
 
     public static Breakout breakout;
@@ -45,11 +47,16 @@ public class EntityManager {
     private static Array<Block> initializeBlocks() {
         final Array<Block> blocks = new Array<>();
 
+        final Random random = new Random();
         int cursor = 0;
         while (cursor < Gdx.graphics.getWidth() + Block.WIDTH) {
+            final float red = random.nextInt(255) / 255f;
+            final float green = random.nextInt(255) / 255f;
+            final float blue = random.nextInt(255) / 255f;
+
             blocks.add(
                     new Block(
-                            new Color(0, 1, 0, 1),
+                            new Color(red, green, blue, 1),
                             new Vector2(cursor, Gdx.graphics.getHeight() / 2)));
             cursor += Block.WIDTH;
         }
