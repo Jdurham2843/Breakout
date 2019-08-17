@@ -17,12 +17,28 @@ public class EntityManager {
 
     public static void update() {
         float deltaTime = Gdx.graphics.getDeltaTime();
-        breakout.getBall().update(deltaTime);
-        breakout.getPaddle().update(deltaTime);
+        final Ball ball = breakout.getBall();
+        final Paddle paddle = breakout.getPaddle();
+        final Array<Block> blocks = breakout.getBlocks();
 
-        if (breakout.getBall().getPosition().overlaps(breakout.getPaddle().getPosition())) {
-            breakout.getBall().getPosition().y = breakout.getPaddle().getHeight();
-            breakout.getBall().setyVelocity(-breakout.getBall().getyVelocity());
+        ball.update(deltaTime);
+        paddle.update(deltaTime);
+
+        if (ball.getPosition().overlaps(paddle.getPosition())) {
+            ball.getPosition().y = paddle.getHeight();
+            ball.setyVelocity(-ball.getyVelocity());
+        } else {
+            handleBallBlocksCollision(ball, blocks);
+        }
+    }
+
+    private static void handleBallBlocksCollision(final Ball ball, final Array<Block> blocks) {
+        for(Block block : blocks) {
+            if (ball.getPosition().overlaps(block.getPosition())) {
+                ball.getPosition().y = block.getPosition().y - ball.getHeight() - 12f;
+                ball.setyVelocity(-ball.getyVelocity());
+                return;
+            }
         }
     }
 
@@ -48,6 +64,7 @@ public class EntityManager {
         final Array<Block> blocks = new Array<>();
 
         final Random random = new Random();
+        final float height = (Gdx.graphics.getHeight() / 2.0f) + 30f;
         int cursor = 0;
         while (cursor < Gdx.graphics.getWidth() + Block.WIDTH) {
             final float red = random.nextInt(255) / 255f;
@@ -57,7 +74,7 @@ public class EntityManager {
             blocks.add(
                     new Block(
                             new Color(red, green, blue, 1),
-                            new Vector2(cursor, Gdx.graphics.getHeight() / 2)));
+                            new Vector2(cursor, height)));
             cursor += Block.WIDTH;
         }
 
