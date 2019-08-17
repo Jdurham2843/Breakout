@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import jad.breakout.model.Ball;
 import jad.breakout.model.Paddle;
 import jad.breakout.util.EntityManager;
@@ -15,9 +12,7 @@ import jad.breakout.util.ExtendedScreen;
 import jad.breakout.util.ScreenOptions;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class GameScreen extends ExtendedScreen {
 
@@ -43,32 +38,41 @@ public class GameScreen extends ExtendedScreen {
 
     }
 
+    private boolean paused = false;
+
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        this.camera.update();
-
-        if (EntityManager.breakout == null) {
-            EntityManager.create();
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            if (paused) paused = false;
+            else paused = true;
         }
 
-        final Ball ball = EntityManager.breakout.getBall();
-        final Paddle paddle = EntityManager.breakout.getPaddle();
-        final ShapeRenderer shapeRenderer = new ShapeRenderer();
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setProjectionMatrix(this.camera.combined);
-        ball.render(shapeRenderer);
-        paddle.render(shapeRenderer);
-        EntityManager.breakout.getBlocks().forEach(block -> {
-            block.render(shapeRenderer);
-        });
-        shapeRenderer.end();
+        if (! paused) {
+            Gdx.gl.glClearColor(0, 0, 0, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            this.camera.update();
 
-        EntityManager.update();
+            if (EntityManager.breakout == null) {
+                EntityManager.create();
+            }
 
-        if (this.game.getGuiStateMachine().shouldChangeState()) {
-            this.game.getGuiStateMachine().determineScreen(this.game);
+            final Ball ball = EntityManager.breakout.getBall();
+            final Paddle paddle = EntityManager.breakout.getPaddle();
+            final ShapeRenderer shapeRenderer = new ShapeRenderer();
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setProjectionMatrix(this.camera.combined);
+            ball.render(shapeRenderer);
+            paddle.render(shapeRenderer);
+            EntityManager.breakout.getBlocks().forEach(block -> {
+                block.render(shapeRenderer);
+            });
+            shapeRenderer.end();
+
+            EntityManager.update();
+
+            if (this.game.getGuiStateMachine().shouldChangeState()) {
+                this.game.getGuiStateMachine().determineScreen(this.game);
+            }
         }
     }
 
