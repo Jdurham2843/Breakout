@@ -51,27 +51,27 @@ public interface GameObject {
     }
 
     private boolean isBottomCollision(final GameObject otherObject) {
-        final float otherObjectYPosition = otherObject.getPosition().y + otherObject.getHeight();
+        final float otherObjectYPosition = otherObject.getVector().y + otherObject.getHeight();
 
-        return otherObjectYPosition < getPosition().y;
+        return otherObjectYPosition < getVector().y;
     }
 
     private boolean isTopCollision(final GameObject otherObject) {
-        final float otherObjectYPosition = otherObject.getPosition().y;
+        final float otherObjectYPosition = otherObject.getVector().y;
 
-        return otherObjectYPosition > getPosition().y;
+        return otherObjectYPosition > getVector().y + getHeight();
     }
 
     private boolean isRightCollision(final GameObject otherObject) {
         final float otherObjectXPosition = otherObject.getPosition().x;
 
-        return otherObjectXPosition > getPosition().x;
+        return otherObjectXPosition > getVector().x + getWidth();
     }
 
     private boolean isLeftCollision(final GameObject otherObject) {
-        final float otherObjectXPosition = otherObject.getPosition().x + otherObject.getWidth();
+        final float otherObjectXPosition = otherObject.getVector().x + otherObject.getWidth();
 
-        return otherObjectXPosition < getPosition().x;
+        return otherObjectXPosition < getVector().x;
     }
 
 }
