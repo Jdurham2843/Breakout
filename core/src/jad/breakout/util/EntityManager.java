@@ -24,12 +24,8 @@ public class EntityManager {
         ball.update(deltaTime);
         paddle.update(deltaTime);
 
-        if (ball.getPosition().overlaps(paddle.getPosition())) {
-            ball.getPosition().y = paddle.getHeight();
-            ball.setyVelocity(-ball.getyVelocity());
-        } else {
-            handleBallBlocksCollision(ball, blocks, deltaTime);
-        }
+        paddle.handleCollision(ball, deltaTime);
+        handleBallBlocksCollision(ball, blocks, deltaTime);
     }
 
     private static void handleBallBlocksCollision(final Ball ball, final Array<Block> blocks, float deltaTime) {
