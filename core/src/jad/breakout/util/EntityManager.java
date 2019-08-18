@@ -28,17 +28,13 @@ public class EntityManager {
             ball.getPosition().y = paddle.getHeight();
             ball.setyVelocity(-ball.getyVelocity());
         } else {
-            handleBallBlocksCollision(ball, blocks);
+            handleBallBlocksCollision(ball, blocks, deltaTime);
         }
     }
 
-    private static void handleBallBlocksCollision(final Ball ball, final Array<Block> blocks) {
+    private static void handleBallBlocksCollision(final Ball ball, final Array<Block> blocks, float deltaTime) {
         for(Block block : blocks) {
-            if (ball.getPosition().overlaps(block.getPosition())) {
-                ball.getPosition().y = block.getPosition().y - ball.getHeight() - 12f;
-                ball.setyVelocity(-ball.getyVelocity());
-                return;
-            }
+            if (block.handleCollision(ball, deltaTime)) return;
         }
     }
 

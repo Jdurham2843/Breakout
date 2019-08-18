@@ -85,18 +85,22 @@ public class Ball implements GameObject {
         return new Rectangle(position.x, position.y, WIDTH, HEIGHT);
     }
 
+    @Override
     public float getxVelocity() {
         return xVelocity;
     }
 
+    @Override
     public void setxVelocity(float xVelocity) {
         this.xVelocity = xVelocity;
     }
 
+    @Override
     public float getyVelocity() {
         return yVelocity;
     }
 
+    @Override
     public void setyVelocity(float yVelocity) {
         this.yVelocity = yVelocity;
     }
