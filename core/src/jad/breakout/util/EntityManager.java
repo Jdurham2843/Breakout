@@ -52,22 +52,23 @@ public class EntityManager {
         breakout = new Breakout(blocks, ball, paddle);
     }
 
+    private static final Color[] rowColors =
+            new Color[] { Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.SALMON, Color.RED };
+    private static final float heightAddition = 30f;
+
     private static Array<Block> initializeBlocks() {
         final Array<Block> blocks = new Array<>();
 
         final Random random = new Random();
-        final float height = (Gdx.graphics.getHeight() / 2.0f) + 30f;
-        int cursor = 0;
-        while (cursor < Gdx.graphics.getWidth() + Block.WIDTH) {
-            final float red = random.nextInt(255) / 255f;
-            final float green = random.nextInt(255) / 255f;
-            final float blue = random.nextInt(255) / 255f;
+        float height = (Gdx.graphics.getHeight() / 2.0f) + heightAddition;
 
-            blocks.add(
-                    new Block(
-                            new Color(red, green, blue, 1),
-                            new Vector2(cursor, height)));
-            cursor += Block.WIDTH;
+        for (Color color : rowColors) {
+            for (int cursor = 0; cursor < Gdx.graphics.getWidth() + Block.WIDTH; cursor += Block.WIDTH) {
+                final Block block = new Block(color, new Vector2(cursor, height));
+                blocks.add(block);
+            }
+
+            height += heightAddition;
         }
 
         return blocks;

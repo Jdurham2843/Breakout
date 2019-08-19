@@ -10,7 +10,7 @@ public class Block implements GameObject {
     public static final int WIDTH = 40;
     public static final int HEIGHT = 40;
 
-    private Color color = new Color(0, 1, 0, 1);
+    private final Color color;
 
     private final Vector2 vector;
     private boolean active = true;
