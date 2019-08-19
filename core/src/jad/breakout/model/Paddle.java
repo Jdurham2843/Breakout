@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Paddle implements GameObject{
 
-    public static final int WIDTH = 80;
+    public static final int WIDTH = 120;
 
     public static final int HEIGHT = 20;
 
