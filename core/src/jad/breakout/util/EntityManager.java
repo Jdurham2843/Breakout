@@ -54,13 +54,12 @@ public class EntityManager {
 
     private static final Color[] rowColors =
             new Color[] { Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.SALMON, Color.RED };
-    private static final float heightAddition = 30f;
 
     private static Array<Block> initializeBlocks() {
         final Array<Block> blocks = new Array<>();
 
         final Random random = new Random();
-        float height = (Gdx.graphics.getHeight() / 2.0f) + heightAddition;
+        float height = (Gdx.graphics.getHeight() / 2.0f) + 30f;
 
         for (Color color : rowColors) {
             for (int cursor = 0; cursor < Gdx.graphics.getWidth() + Block.WIDTH; cursor += Block.WIDTH) {
@@ -68,7 +67,7 @@ public class EntityManager {
                 blocks.add(block);
             }
 
-            height += heightAddition;
+            height += Block.HEIGHT;
         }
 
         return blocks;
