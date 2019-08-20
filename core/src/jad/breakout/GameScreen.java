@@ -7,8 +7,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import jad.breakout.model.Ball;
-import jad.breakout.model.Paddle;
 import jad.breakout.util.EntityManager;
 import jad.breakout.util.ExtendedScreen;
 import jad.breakout.util.ScreenOptions;
@@ -68,20 +66,7 @@ public class GameScreen extends ExtendedScreen {
                 EntityManager.create();
             }
 
-            final Ball ball = EntityManager.breakout.getBall();
-            final Paddle paddle = EntityManager.breakout.getPaddle();
-
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            ball.render(shapeRenderer);
-            paddle.render(shapeRenderer);
-            EntityManager.breakout.getBlocks().forEach(block -> {
-                block.render(shapeRenderer);
-            });
-            shapeRenderer.end();
-
-            spriteBatch.begin();
-            bitmapFont.draw(spriteBatch, Integer.toString(EntityManager.breakout.getPoints()), 10, 10);
-            spriteBatch.end();
+            EntityManager.render(spriteBatch, shapeRenderer);
 
             EntityManager.update();
 

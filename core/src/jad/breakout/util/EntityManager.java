@@ -2,6 +2,9 @@ package jad.breakout.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import jad.breakout.model.Ball;
@@ -83,6 +86,21 @@ public class EntityManager {
         }
 
         return blocks;
+    }
+
+    private static final BitmapFont scoreFont = new BitmapFont();
+    public static void render(final SpriteBatch spriteBatch, final ShapeRenderer shapeRenderer) {
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        breakout.getBall().render(shapeRenderer);
+        breakout.getPaddle().render(shapeRenderer);
+        breakout.getBlocks().forEach(block -> {
+            block.render(shapeRenderer);
+        });
+        shapeRenderer.end();
+
+        spriteBatch.begin();
+        scoreFont.draw(spriteBatch, Integer.toString(EntityManager.breakout.getPoints()), 10, 10);
+        spriteBatch.end();
     }
 
 }
