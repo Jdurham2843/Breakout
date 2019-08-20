@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class Ball implements GameObject {
+public class Ball extends GameObject {
 
     public static final int WIDTH = 20;
 

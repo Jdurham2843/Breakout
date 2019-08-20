@@ -1,35 +1,34 @@
 package jad.breakout.model;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public interface GameObject {
+public abstract class GameObject {
 
-    Vector2 getVector();
+    public abstract Vector2 getVector();
 
-    Rectangle getPosition();
+    public abstract Rectangle getPosition();
 
-    int getHeight();
+    public abstract int getHeight();
 
-    int getWidth();
+    public abstract int getWidth();
 
-    default float getyVelocity() {
+    public float getyVelocity() {
         return 0f;
     }
 
-    default void setyVelocity(float newVelocity) { }
+    public void setyVelocity(float newVelocity) { }
 
-    default float getxVelocity() { return 0f; }
+    public float getxVelocity() { return 0f; }
 
-    default void setxVelocity(final float xVelocity) {}
+    public void setxVelocity(final float xVelocity) {}
 
-    void update(float deltaTime);
+    public abstract void update(float deltaTime);
 
-    void render(ShapeRenderer shapeRenderer);
+    public abstract void render(ShapeRenderer shapeRenderer);
 
-    default boolean handleCollision(final GameObject otherObject, final float deltaTime) {
+    public boolean handleCollision(final GameObject otherObject, final float deltaTime) {
         if (otherObject.getPosition().overlaps(getPosition())) {
             rewindUntilOverlapIsGone(otherObject, deltaTime);
             if (isBottomCollision(otherObject) || isTopCollision(otherObject)) {
@@ -43,32 +42,32 @@ public interface GameObject {
         return false;
     }
 
-    private void rewindUntilOverlapIsGone(final GameObject otherObject, final float deltaTime) {
+    protected void rewindUntilOverlapIsGone(final GameObject otherObject, final float deltaTime) {
         while (otherObject.getPosition().overlaps(getPosition())) {
             otherObject.getVector().x -= otherObject.getxVelocity() * deltaTime;
             otherObject.getVector().y -= otherObject.getyVelocity() * deltaTime;
         }
     }
 
-    private boolean isBottomCollision(final GameObject otherObject) {
+    protected boolean isBottomCollision(final GameObject otherObject) {
         final float otherObjectYPosition = otherObject.getVector().y + otherObject.getHeight();
 
         return otherObjectYPosition < getVector().y;
     }
 
-    private boolean isTopCollision(final GameObject otherObject) {
+    protected boolean isTopCollision(final GameObject otherObject) {
         final float otherObjectYPosition = otherObject.getVector().y;
 
         return otherObjectYPosition > getVector().y + getHeight();
     }
 
-    private boolean isRightCollision(final GameObject otherObject) {
+    protected boolean isRightCollision(final GameObject otherObject) {
         final float otherObjectXPosition = otherObject.getPosition().x;
 
         return otherObjectXPosition > getVector().x + getWidth();
     }
 
-    private boolean isLeftCollision(final GameObject otherObject) {
+    protected boolean isLeftCollision(final GameObject otherObject) {
         final float otherObjectXPosition = otherObject.getVector().x + otherObject.getWidth();
 
         return otherObjectXPosition < getVector().x;

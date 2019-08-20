@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class Paddle implements GameObject{
+public class Paddle extends GameObject {
 
     public static final int WIDTH = 120;
 

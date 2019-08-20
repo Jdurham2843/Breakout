@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class Block implements GameObject {
+public class Block extends GameObject {
 
     public static final int WIDTH = 40;
     public static final int HEIGHT = 40;
@@ -18,10 +18,6 @@ public class Block implements GameObject {
     public Block(Color color, Vector2 vector) {
         this.color = color;
         this.vector = vector;
-    }
-
-    public Color getColor() {
-        return color;
     }
 
     @Override
@@ -63,7 +59,7 @@ public class Block implements GameObject {
             return false;
         }
 
-        final boolean collisionDetected = GameObject.super.handleCollision(otherObject, deltaTime);
+        final boolean collisionDetected = super.handleCollision(otherObject, deltaTime);
 
         if (collisionDetected) {
             active = false;
