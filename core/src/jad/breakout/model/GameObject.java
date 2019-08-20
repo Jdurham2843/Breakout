@@ -18,11 +18,11 @@ public abstract class GameObject {
         return 0f;
     }
 
-    public void setyVelocity(float newVelocity) { }
+    public Vector2 getDirection() {
+        return new Vector2(0f, 0f);
+    }
 
     public float getxVelocity() { return 0f; }
-
-    public void setxVelocity(final float xVelocity) {}
 
     public abstract void update(float deltaTime);
 
@@ -32,10 +32,10 @@ public abstract class GameObject {
         if (otherObject.getPosition().overlaps(getPosition())) {
             rewindUntilOverlapIsGone(otherObject, deltaTime);
             if (isBottomCollision(otherObject) || isTopCollision(otherObject)) {
-                otherObject.setyVelocity(-otherObject.getyVelocity());
+                otherObject.getDirection().y *= -1;
                 return true;
             } else if (isLeftCollision(otherObject) || isRightCollision(otherObject)) {
-                otherObject.setxVelocity(-otherObject.getxVelocity());
+                otherObject.getDirection().x *= -1;
                 return true;
             }
         }

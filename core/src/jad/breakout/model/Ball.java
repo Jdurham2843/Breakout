@@ -16,31 +16,28 @@ public class Ball extends GameObject {
 
     private Vector2 position;
 
-    private float xVelocity;
+    private Vector2 direction;
 
-    private float yVelocity;
-
-    private static final float VELOCITY_CONSTANT = 350.0f;
+    private float speed = 700.0f;
 
     public Ball(Vector2 position) {
         this.position = position;
-        this.xVelocity = -VELOCITY_CONSTANT;
-        this.yVelocity = -VELOCITY_CONSTANT;
+        this.direction = new Vector2(-.50f, -.50f);
     }
 
     @Override
     public void update(float deltaTime) {
         this.moveBackOnScreen();
         if (getVector().y + HEIGHT == Gdx.graphics.getHeight() || getVector().y == 0) {
-            setyVelocity(-getyVelocity());
+            direction.y = -direction.y;
         }
 
         if (getVector().x + WIDTH == Gdx.graphics.getWidth() || getVector().x == 0) {
-            setxVelocity(-getxVelocity());
+            direction.x = -direction.x;
         }
 
-        this.position.y += this.yVelocity * deltaTime;
-        this.position.x += this.xVelocity * deltaTime;
+        this.position.y += getyVelocity() * deltaTime;
+        this.position.x += getxVelocity() * deltaTime;
     }
 
     private void moveBackOnScreen() {
@@ -64,8 +61,7 @@ public class Ball extends GameObject {
     }
 
     public void applySpeedMultiplier(final float speedMultiplier) {
-        this.xVelocity *= speedMultiplier;
-        this.yVelocity *= speedMultiplier;
+        speed *= speedMultiplier;
     }
 
     @Override
@@ -78,8 +74,9 @@ public class Ball extends GameObject {
         return HEIGHT;
     }
 
-    public Color getColor() {
-        return color;
+    @Override
+    public Vector2 getDirection() {
+        return direction;
     }
 
     @Override
@@ -94,21 +91,11 @@ public class Ball extends GameObject {
 
     @Override
     public float getxVelocity() {
-        return xVelocity;
-    }
-
-    @Override
-    public void setxVelocity(float xVelocity) {
-        this.xVelocity = xVelocity;
+        return speed * direction.x;
     }
 
     @Override
     public float getyVelocity() {
-        return yVelocity;
-    }
-
-    @Override
-    public void setyVelocity(float yVelocity) {
-        this.yVelocity = yVelocity;
+        return speed * direction.y;
     }
 }
