@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Paddle extends GameObject {
 
-    public static final int WIDTH = 120;
+    public static final int WIDTH = 200;
 
     public static final int HEIGHT = 20;
 
@@ -70,6 +70,31 @@ public class Paddle extends GameObject {
         } else if (getVector().x  < 0) {
             getVector().x = 0;
         }
+    }
+
+    @Override
+    protected void handleTopCollision(final GameObject otherObject) {
+        final float section1 = getVector().x + (WIDTH * (1.0f / 3.0f));
+        final float section2 = getVector().x + (WIDTH * (2.0f / 3.0f));
+
+        final float otherObjectsCentralPosition = otherObject.getVector().x + (otherObject.getWidth() * .5f);
+        if (otherObjectsCentralPosition < section1) {
+            otherObject.getDirection().set(-0.7f, 0.3f);
+        } else if (otherObjectsCentralPosition < section2) {
+            otherObject.getDirection().set(0.0f, 1.0f);
+        } else {
+            otherObject.getDirection().set(0.7f, 0.3f);
+        }
+    }
+
+    @Override
+    protected void handleRightCollision(final GameObject otherObject) {
+        otherObject.getDirection().set(.8f, 2f);
+    }
+
+    @Override
+    protected void handleLeftCollision(final GameObject otherObject) {
+        otherObject.getDirection().set(-.8f, 2f);
     }
 
 }
