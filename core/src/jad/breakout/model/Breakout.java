@@ -13,10 +13,13 @@ public class Breakout {
 
     private final Paddle paddle;
 
+    private int points;
+
     public Breakout(Array<Block> blocks, Ball ball, Paddle paddle) {
         this.blocks = blocks;
         this.ball = ball;
         this.paddle = paddle;
+        points = 0;
     }
 
     public Array<Block> getBlocks() {
@@ -29,6 +32,14 @@ public class Breakout {
 
     public Paddle getPaddle() {
         return paddle;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void addPoints(int additionalPoints) {
+        points += additionalPoints;
     }
 
 }

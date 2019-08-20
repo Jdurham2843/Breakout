@@ -39,6 +39,8 @@ public class EntityManager {
                     ball.applySpeedMultiplier(2);
                     colorSpeedUpApplied = true;
                 }
+
+                breakout.addPoints(1);
                 return;
             }
         }

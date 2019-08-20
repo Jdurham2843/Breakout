@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import jad.breakout.model.Ball;
 import jad.breakout.model.Paddle;
@@ -18,6 +20,10 @@ public class GameScreen extends ExtendedScreen {
 
     private final OrthographicCamera camera;
 
+    private final SpriteBatch spriteBatch;
+
+    private final ShapeRenderer shapeRenderer;
+
     public static ScreenOptions getScreenOptions() {
         return new ScreenOptions(GameScreen.class, GameScreen.getStateChangeKeys());
     }
@@ -31,6 +37,11 @@ public class GameScreen extends ExtendedScreen {
         super(breakoutApplication);
         this.camera = new OrthographicCamera();
         this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        this.shapeRenderer = new ShapeRenderer();
+        shapeRenderer.setProjectionMatrix(camera.combined);
+        this.spriteBatch = new SpriteBatch();
+        spriteBatch.setProjectionMatrix(camera.combined);
+
     }
 
     @Override
@@ -39,6 +50,8 @@ public class GameScreen extends ExtendedScreen {
     }
 
     private boolean paused = false;
+
+    private final BitmapFont bitmapFont = new BitmapFont();
 
     @Override
     public void render(float delta) {
@@ -50,7 +63,6 @@ public class GameScreen extends ExtendedScreen {
         if (! paused) {
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            this.camera.update();
 
             if (EntityManager.breakout == null) {
                 EntityManager.create();
@@ -58,15 +70,18 @@ public class GameScreen extends ExtendedScreen {
 
             final Ball ball = EntityManager.breakout.getBall();
             final Paddle paddle = EntityManager.breakout.getPaddle();
-            final ShapeRenderer shapeRenderer = new ShapeRenderer();
+
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setProjectionMatrix(this.camera.combined);
             ball.render(shapeRenderer);
             paddle.render(shapeRenderer);
             EntityManager.breakout.getBlocks().forEach(block -> {
                 block.render(shapeRenderer);
             });
             shapeRenderer.end();
+
+            spriteBatch.begin();
+            bitmapFont.draw(spriteBatch, Integer.toString(EntityManager.breakout.getPoints()), 10, 10);
+            spriteBatch.end();
 
             EntityManager.update();
 
