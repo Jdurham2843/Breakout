@@ -31,11 +31,18 @@ public abstract class GameObject {
     public boolean handleCollision(final GameObject otherObject, final float deltaTime) {
         if (otherObject.getPosition().overlaps(getPosition())) {
             rewindUntilOverlapIsGone(otherObject, deltaTime);
-            if (isBottomCollision(otherObject) || isTopCollision(otherObject)) {
-                otherObject.getDirection().y *= -1;
+
+            if (isTopCollision(otherObject)) {
+                handleTopCollision(otherObject);
                 return true;
-            } else if (isLeftCollision(otherObject) || isRightCollision(otherObject)) {
-                otherObject.getDirection().x *= -1;
+            } else if (isBottomCollision(otherObject)) {
+                handleBottomCollision(otherObject);
+                return true;
+            } else if (isLeftCollision(otherObject)) {
+                handleLeftCollision(otherObject);
+                return true;
+            } else if (isRightCollision(otherObject)) {
+                handleRightCollision(otherObject);
                 return true;
             }
         }
@@ -71,6 +78,22 @@ public abstract class GameObject {
         final float otherObjectXPosition = otherObject.getVector().x + otherObject.getWidth();
 
         return otherObjectXPosition < getVector().x;
+    }
+
+    protected void handleTopCollision(final GameObject otherObject) {
+        otherObject.getDirection().y *= -1;
+    }
+
+    protected void handleBottomCollision(final GameObject otherObject) {
+        otherObject.getDirection().y *= -1;
+    }
+
+    protected void handleLeftCollision(final GameObject otherObject) {
+        otherObject.getDirection().x *= -1;
+    }
+
+    protected void handleRightCollision(final GameObject otherObject) {
+        otherObject.getDirection().x *= -1;
     }
 
 }
