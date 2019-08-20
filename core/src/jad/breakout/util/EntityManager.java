@@ -16,9 +16,19 @@ import java.util.List;
 
 public class EntityManager {
 
-    public static Breakout breakout;
+    public Breakout breakout;
 
-    public static void update() {
+    public static EntityManager initialize() {
+        final Breakout breakout = Breakout.initialize();
+        final EntityManager entityManager = new EntityManager(breakout);
+        return entityManager;
+    }
+
+    private EntityManager(final Breakout breakout) {
+        this.breakout = breakout;
+    }
+
+    public void update() {
         float deltaTime = Gdx.graphics.getDeltaTime();
         final Ball ball = breakout.getBall();
         final Paddle paddle = breakout.getPaddle();
@@ -31,9 +41,9 @@ public class EntityManager {
         handleBallBlocksCollision(ball, blocks, deltaTime);
     }
 
-    private static final List<Color> speedUpColors = Arrays.asList(Color.BLUE);
-    private static boolean colorSpeedUpApplied = false;
-    private static void handleBallBlocksCollision(final Ball ball, final Array<Block> blocks, float deltaTime) {
+    private final List<Color> speedUpColors = Arrays.asList(Color.BLUE);
+    private boolean colorSpeedUpApplied = false;
+    private void handleBallBlocksCollision(final Ball ball, final Array<Block> blocks, float deltaTime) {
         for(Block block : blocks) {
             if (block.handleCollision(ball, deltaTime)) {
                 if (!colorSpeedUpApplied && speedUpColors.contains(block.getColor())) {
@@ -47,16 +57,8 @@ public class EntityManager {
         }
     }
 
-    public static void reset() {
-        create();
-    }
-
-    public static void create() {
-        breakout = Breakout.initialize();
-    }
-
-    private static final BitmapFont scoreFont = new BitmapFont();
-    public static void render(final SpriteBatch spriteBatch, final ShapeRenderer shapeRenderer) {
+    private final BitmapFont scoreFont = new BitmapFont();
+    public void render(final SpriteBatch spriteBatch, final ShapeRenderer shapeRenderer) {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         breakout.getBall().render(shapeRenderer);
         breakout.getPaddle().render(shapeRenderer);
@@ -66,7 +68,7 @@ public class EntityManager {
         shapeRenderer.end();
 
         spriteBatch.begin();
-        scoreFont.draw(spriteBatch, Integer.toString(EntityManager.breakout.getPoints()), 10, 10);
+        scoreFont.draw(spriteBatch, Integer.toString(breakout.getPoints()), 10, 10);
         spriteBatch.end();
     }
 

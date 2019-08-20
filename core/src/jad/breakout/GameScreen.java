@@ -22,6 +22,8 @@ public class GameScreen extends ExtendedScreen {
 
     private final ShapeRenderer shapeRenderer;
 
+    private EntityManager entityManager;
+
     public static ScreenOptions getScreenOptions() {
         return new ScreenOptions(GameScreen.class, GameScreen.getStateChangeKeys());
     }
@@ -40,6 +42,7 @@ public class GameScreen extends ExtendedScreen {
         this.spriteBatch = new SpriteBatch();
         spriteBatch.setProjectionMatrix(camera.combined);
 
+        this.entityManager = EntityManager.initialize();
     }
 
     @Override
@@ -48,8 +51,6 @@ public class GameScreen extends ExtendedScreen {
     }
 
     private boolean paused = false;
-
-    private final BitmapFont bitmapFont = new BitmapFont();
 
     @Override
     public void render(float delta) {
@@ -62,13 +63,9 @@ public class GameScreen extends ExtendedScreen {
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-            if (EntityManager.breakout == null) {
-                EntityManager.create();
-            }
+            entityManager.render(spriteBatch, shapeRenderer);
 
-            EntityManager.render(spriteBatch, shapeRenderer);
-
-            EntityManager.update();
+            entityManager.update();
 
             if (this.game.getGuiStateMachine().shouldChangeState()) {
                 this.game.getGuiStateMachine().determineScreen(this.game);
