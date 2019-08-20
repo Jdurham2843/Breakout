@@ -20,10 +20,12 @@ public class Ball extends GameObject {
 
     private float yVelocity;
 
+    private static final float VELOCITY_CONSTANT = 350.0f;
+
     public Ball(Vector2 position) {
         this.position = position;
-        this.xVelocity = -500.0f;
-        this.yVelocity = - 350.0f;
+        this.xVelocity = -VELOCITY_CONSTANT;
+        this.yVelocity = -VELOCITY_CONSTANT;
     }
 
     @Override
@@ -59,6 +61,11 @@ public class Ball extends GameObject {
     public void render(final ShapeRenderer shapeRenderer) {
         shapeRenderer.setColor(color);
         shapeRenderer.circle(this.getVector().x, this.getVector().y, Ball.WIDTH / 2.0f);
+    }
+
+    public void applySpeedMultiplier(final float speedMultiplier) {
+        this.xVelocity *= speedMultiplier;
+        this.yVelocity *= speedMultiplier;
     }
 
     @Override

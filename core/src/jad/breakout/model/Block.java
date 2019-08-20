@@ -20,6 +20,10 @@ public class Block extends GameObject {
         this.vector = vector;
     }
 
+    public Color getColor() {
+        return color;
+    }
+
     @Override
     public Vector2 getVector() {
         return vector;

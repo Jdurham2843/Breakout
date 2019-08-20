@@ -9,6 +9,8 @@ import jad.breakout.model.Block;
 import jad.breakout.model.Breakout;
 import jad.breakout.model.Paddle;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class EntityManager {
@@ -28,9 +30,17 @@ public class EntityManager {
         handleBallBlocksCollision(ball, blocks, deltaTime);
     }
 
+    private static final List<Color> speedUpColors = Arrays.asList(Color.BLUE);
+    private static boolean colorSpeedUpApplied = false;
     private static void handleBallBlocksCollision(final Ball ball, final Array<Block> blocks, float deltaTime) {
         for(Block block : blocks) {
-            if (block.handleCollision(ball, deltaTime)) return;
+            if (block.handleCollision(ball, deltaTime)) {
+                if (!colorSpeedUpApplied && speedUpColors.contains(block.getColor())) {
+                    ball.applySpeedMultiplier(2);
+                    colorSpeedUpApplied = true;
+                }
+                return;
+            }
         }
     }
 
