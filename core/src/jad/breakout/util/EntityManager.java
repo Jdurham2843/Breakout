@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import jad.breakout.model.Ball;
 import jad.breakout.model.Block;
@@ -14,7 +13,6 @@ import jad.breakout.model.Paddle;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class EntityManager {
 
@@ -54,38 +52,7 @@ public class EntityManager {
     }
 
     public static void create() {
-        final Vector2 ballVector = new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-        final Ball ball = new Ball(ballVector);
-
-        final Paddle paddle = new Paddle(
-                new Vector2(
-                        (Gdx.graphics.getWidth() / 2) - (Paddle.WIDTH / 2),
-                        0));
-
-        final Array<Block> blocks = initializeBlocks();
-
-        breakout = new Breakout(blocks, ball, paddle);
-    }
-
-    private static final Color[] rowColors =
-            new Color[] { Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.SALMON, Color.RED };
-
-    private static Array<Block> initializeBlocks() {
-        final Array<Block> blocks = new Array<>();
-
-        final Random random = new Random();
-        float height = (Gdx.graphics.getHeight() / 2.0f) + 30f;
-
-        for (Color color : rowColors) {
-            for (int cursor = 0; cursor < Gdx.graphics.getWidth() + Block.WIDTH; cursor += Block.WIDTH) {
-                final Block block = new Block(color, new Vector2(cursor, height));
-                blocks.add(block);
-            }
-
-            height += Block.HEIGHT;
-        }
-
-        return blocks;
+        breakout = Breakout.initialize();
     }
 
     private static final BitmapFont scoreFont = new BitmapFont();
