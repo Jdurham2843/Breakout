@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import jad.breakout.util.DimensionHelper;
 import jad.breakout.util.ExtendedScreen;
 import jad.breakout.util.ScreenOptions;
 
@@ -32,7 +33,7 @@ public class MainMenuScreen extends ExtendedScreen {
     public MainMenuScreen(final BreakoutApplication breakoutApplication) {
         super(breakoutApplication);
         this.camera = new OrthographicCamera();
-        this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        this.camera.setToOrtho(false, DimensionHelper.playAreaWidth(), DimensionHelper.playAreaHeight());
 
         this.textures = this.initializeTextures();
     }
@@ -62,8 +63,8 @@ public class MainMenuScreen extends ExtendedScreen {
         spriteBatch.begin();
         spriteBatch.draw(
                    texture,
-                Gdx.graphics.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2,
+                DimensionHelper.playAreaWidth() / 2,
+                DimensionHelper.playAreaHeight() / 2,
                 100,
                 100);
         spriteBatch.end();
@@ -75,7 +76,7 @@ public class MainMenuScreen extends ExtendedScreen {
 
     @Override
     public void resize(int width, int height) {
-        this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        this.camera.setToOrtho(false, DimensionHelper.playAreaWidth(), DimensionHelper.playAreaHeight());
     }
 
     @Override

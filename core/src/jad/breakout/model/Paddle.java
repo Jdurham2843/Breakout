@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import jad.breakout.util.DimensionHelper;
 
 public class Paddle extends GameObject {
 
@@ -59,14 +60,14 @@ public class Paddle extends GameObject {
     }
 
     private void moveBackOntoScreen() {
-        if (getVector().y + getHeight() >  Gdx.graphics.getHeight()) {
-            getVector().y = Gdx.graphics.getHeight() - getHeight();
+        if (getVector().y + getHeight() >  DimensionHelper.playAreaHeight()) {
+            getVector().y = DimensionHelper.playAreaHeight() - getHeight();
         } else if (getVector().y  <  0) {
             getVector().y = 0;
         }
 
-        if (getVector().x + getWidth() > Gdx.graphics.getWidth()) {
-            getVector().x = Gdx.graphics.getWidth() - getWidth();
+        if (getVector().x + getWidth() > DimensionHelper.playAreaWidth()) {
+            getVector().x = DimensionHelper.playAreaWidth() - getWidth();
         } else if (getVector().x  < 0) {
             getVector().x = 0;
         }

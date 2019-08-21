@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import jad.breakout.util.DimensionHelper;
 import jad.breakout.util.EntityManager;
 import jad.breakout.util.ExtendedScreen;
 import jad.breakout.util.ScreenOptions;
@@ -36,7 +37,7 @@ public class GameScreen extends ExtendedScreen {
     public GameScreen(final BreakoutApplication breakoutApplication) {
         super(breakoutApplication);
         this.camera = new OrthographicCamera();
-        this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        this.camera.setToOrtho(false, DimensionHelper.playAreaWidth(), DimensionHelper.playAreaHeight());
         this.shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(camera.combined);
         this.spriteBatch = new SpriteBatch();
@@ -75,7 +76,7 @@ public class GameScreen extends ExtendedScreen {
 
     @Override
     public void resize(int width, int height) {
-        this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        this.camera.setToOrtho(false, DimensionHelper.playAreaWidth(), DimensionHelper.playAreaHeight());
     }
 
     @Override

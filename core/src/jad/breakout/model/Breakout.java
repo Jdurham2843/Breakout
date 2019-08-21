@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import jad.breakout.util.DimensionHelper;
 
 import java.util.Random;
 
@@ -18,12 +19,12 @@ public class Breakout {
     private int points;
 
     public static Breakout initialize() {
-        final Vector2 ballVector = new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+        final Vector2 ballVector = new Vector2(DimensionHelper.playAreaWidth() / 2, DimensionHelper.playAreaHeight() / 2);
         final Ball ball = new Ball(ballVector);
 
         final Paddle paddle = new Paddle(
                 new Vector2(
-                        (Gdx.graphics.getWidth() / 2) - (Paddle.WIDTH / 2),
+                        (DimensionHelper.playAreaWidth() / 2) - (Paddle.WIDTH / 2),
                         0));
 
         final Array<Block> blocks = initializeBlocks();
@@ -36,10 +37,10 @@ public class Breakout {
 
     private static Array<Block> initializeBlocks() {
         final Array<Block> blocks = new Array<>();
-        float height = (Gdx.graphics.getHeight() / 2.0f) + 30f;
+        float height = (DimensionHelper.playAreaHeight() / 2.0f) + 30f;
 
         for (Color color : rowColors) {
-            for (int cursor = 0; cursor < Gdx.graphics.getWidth() + Block.WIDTH; cursor += Block.WIDTH) {
+            for (int cursor = 0; cursor < DimensionHelper.playAreaWidth() + Block.WIDTH; cursor += Block.WIDTH) {
                 final Block block = new Block(color, new Vector2(cursor, height));
                 blocks.add(block);
             }

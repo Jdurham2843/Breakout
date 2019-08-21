@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import jad.breakout.util.DimensionHelper;
 
 public class Ball extends GameObject {
 
@@ -28,11 +29,11 @@ public class Ball extends GameObject {
     @Override
     public void update(float deltaTime) {
         this.moveBackOnScreen();
-        if (getVector().y + HEIGHT == Gdx.graphics.getHeight() || getVector().y == 0) {
+        if (getVector().y + HEIGHT == DimensionHelper.playAreaHeight() || getVector().y == 0) {
             direction.y = -direction.y;
         }
 
-        if (getVector().x + WIDTH == Gdx.graphics.getWidth() || getVector().x == 0) {
+        if (getVector().x + WIDTH == DimensionHelper.playAreaWidth() || getVector().x == 0) {
             direction.x = -direction.x;
         }
 
@@ -41,14 +42,14 @@ public class Ball extends GameObject {
     }
 
     private void moveBackOnScreen() {
-        if (this.getVector().y + this.getHeight() >  Gdx.graphics.getHeight()) {
-            this.getVector().y = Gdx.graphics.getHeight() - this.getHeight();
+        if (this.getVector().y + this.getHeight() >  DimensionHelper.playAreaHeight()) {
+            this.getVector().y = DimensionHelper.playAreaHeight() - this.getHeight();
         } else if (this.getVector().y  <  0) {
             this.getVector().y = 0;
         }
 
-        if (this.getVector().x + this.getWidth() > Gdx.graphics.getWidth()) {
-            this.getVector().x = Gdx.graphics.getWidth() - this.getWidth();
+        if (this.getVector().x + this.getWidth() > DimensionHelper.playAreaWidth()) {
+            this.getVector().x = DimensionHelper.playAreaWidth() - this.getWidth();
         } else if (this.getVector().x < 0) {
             this.getVector().x = 0;
         }
