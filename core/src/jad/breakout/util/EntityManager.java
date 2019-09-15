@@ -30,6 +30,7 @@ public class EntityManager {
         final Ball ball = breakout.getBall();
         final Paddle paddle = breakout.getPaddle();
         final Array<Block> blocks = breakout.getBlocks();
+        final Array<Wall> walls = breakout.getWalls();
 
         moveBackOnScreen(ball);
         ball.update(deltaTime);
@@ -38,6 +39,7 @@ public class EntityManager {
 
         paddle.handleCollision(ball, deltaTime);
         handleBallBlocksCollision(ball, blocks, deltaTime);
+        handleBallWallCollision(ball, walls, deltaTime);
     }
 
     private void moveBackOnScreen(final GameObject gameObject) {
@@ -68,6 +70,12 @@ public class EntityManager {
                 return;
             }
         }
+    }
+
+    private void handleBallWallCollision(final Ball ball, final Array<Wall> walls, final float deltaTime) {
+        walls.forEach(wall -> {
+            wall.handleCollision(ball, deltaTime);
+        });
     }
 
     private final BitmapFont scoreFont = new BitmapFont();
