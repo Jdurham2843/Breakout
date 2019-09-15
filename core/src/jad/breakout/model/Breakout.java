@@ -18,7 +18,7 @@ public class Breakout {
 
     private final Paddle paddle;
 
-    private final List<Wall> walls;
+    private final Array<Wall> walls;
 
     private int points;
 
@@ -32,7 +32,7 @@ public class Breakout {
                         0));
 
         final Array<Block> blocks = initializeBlocks();
-        final List<Wall> walls = initializeWalls();
+        final Array<Wall> walls = initializeWalls();
 
         return new Breakout(blocks, ball, paddle, walls);
     }
@@ -57,7 +57,7 @@ public class Breakout {
     }
 
     private static final int sideWallWidth = (int) (Gdx.graphics.getWidth() * .02);
-    private static List<Wall> initializeWalls() {
+    private static Array<Wall> initializeWalls() {
         final int sideWallWidth = (int) (Gdx.graphics.getWidth() * .02);
         final int sideWallHeight = (int) (Gdx.graphics.getHeight() * .9);
         final Vector2 position = new Vector2(0, 0);
@@ -73,10 +73,10 @@ public class Breakout {
         final Vector2 topWallPosition = new Vector2(0, topWallYPosition);
         final Wall topWall = new Wall(topWallPosition, topWallWidth, topWallHeight);
 
-        return Arrays.asList(leftWall, rightWall, topWall);
+        return new Array<>(new Wall[]{leftWall, topWall, rightWall});
     }
 
-    private Breakout(Array<Block> blocks, Ball ball, Paddle paddle, List<Wall> walls) {
+    private Breakout(Array<Block> blocks, Ball ball, Paddle paddle, Array<Wall> walls) {
         this.blocks = blocks;
         this.ball = ball;
         this.paddle = paddle;
@@ -96,7 +96,7 @@ public class Breakout {
         return paddle;
     }
 
-    public List<Wall> getWalls() {
+    public Array<Wall> getWalls() {
         return walls;
     }
 
