@@ -2,17 +2,19 @@ package jad.breakout;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import jad.breakout.util.DimensionHelper;
 import jad.breakout.util.EntityManager;
 import jad.breakout.util.ExtendedScreen;
 import jad.breakout.util.ScreenOptions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GameScreen extends ExtendedScreen {
@@ -52,6 +54,22 @@ public class GameScreen extends ExtendedScreen {
     }
 
     private boolean paused = false;
+
+    private List<Rectangle> initializeWalls() {
+        float sideWallWidth = Gdx.graphics.getWidth() * .025f;
+        float sideWallHeight = Gdx.graphics.getHeight() * .9f;
+        final Rectangle leftWall = new Rectangle(0f, 0f, sideWallWidth, sideWallHeight);
+
+        float rightWallPosition = Gdx.graphics.getWidth() - sideWallWidth;
+        final Rectangle rightWall = new Rectangle(rightWallPosition, 0f, sideWallWidth, sideWallHeight);
+
+        float topWallWidth = Gdx.graphics.getWidth();
+        float topWallHeight = sideWallWidth;
+        float topWallPosition = sideWallHeight - topWallHeight;
+        final Rectangle topWall = new Rectangle(0.0f, topWallPosition, topWallWidth, topWallHeight);
+
+        return Arrays.asList(leftWall, rightWall, topWall);
+    }
 
     @Override
     public void render(float delta) {

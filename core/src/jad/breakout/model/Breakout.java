@@ -2,11 +2,13 @@ package jad.breakout.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import jad.breakout.util.DimensionHelper;
 
-import java.util.Random;
+import java.util.Arrays;
+import java.util.List;
 
 public class Breakout {
 
@@ -15,6 +17,8 @@ public class Breakout {
     private final Ball ball;
 
     private final Paddle paddle;
+
+    private final List<Wall> walls;
 
     private int points;
 
@@ -28,8 +32,9 @@ public class Breakout {
                         0));
 
         final Array<Block> blocks = initializeBlocks();
+        final List<Wall> walls = initializeWalls();
 
-        return new Breakout(blocks, ball, paddle);
+        return new Breakout(blocks, ball, paddle, walls);
     }
 
     private static final Color[] rowColors =
@@ -40,7 +45,7 @@ public class Breakout {
         float height = (DimensionHelper.playAreaHeight() / 2.0f) + 30f;
 
         for (Color color : rowColors) {
-            for (int cursor = 0; cursor < DimensionHelper.playAreaWidth() + Block.WIDTH; cursor += Block.WIDTH) {
+            for (int cursor = sideWallWidth; cursor + Block.WIDTH < DimensionHelper.playAreaWidth() - sideWallWidth; cursor += Block.WIDTH) {
                 final Block block = new Block(color, new Vector2(cursor, height));
                 blocks.add(block);
             }
@@ -51,11 +56,32 @@ public class Breakout {
         return blocks;
     }
 
-    private Breakout(Array<Block> blocks, Ball ball, Paddle paddle) {
+    private static final int sideWallWidth = (int) (Gdx.graphics.getWidth() * .02);
+    private static List<Wall> initializeWalls() {
+        final int sideWallWidth = (int) (Gdx.graphics.getWidth() * .02);
+        final int sideWallHeight = (int) (Gdx.graphics.getHeight() * .9);
+        final Vector2 position = new Vector2(0, 0);
+        final Wall leftWall = new Wall(position, sideWallWidth, sideWallHeight);
+
+        final int rightWallXPosition = Gdx.graphics.getWidth() - sideWallWidth;
+        final Vector2 rightWallPosition = new Vector2(rightWallXPosition, 0);
+        final Wall rightWall = new Wall(rightWallPosition, sideWallWidth, sideWallHeight);
+
+        int topWallWidth = Gdx.graphics.getWidth();
+        int topWallHeight = sideWallWidth;
+        int topWallYPosition = sideWallHeight - topWallHeight;
+        final Vector2 topWallPosition = new Vector2(0, topWallYPosition);
+        final Wall topWall = new Wall(topWallPosition, topWallWidth, topWallHeight);
+
+        return Arrays.asList(leftWall, rightWall, topWall);
+    }
+
+    private Breakout(Array<Block> blocks, Ball ball, Paddle paddle, List<Wall> walls) {
         this.blocks = blocks;
         this.ball = ball;
         this.paddle = paddle;
-        points = 0;
+        this.points = 0;
+        this.walls = walls;
     }
 
     public Array<Block> getBlocks() {
@@ -68,6 +94,10 @@ public class Breakout {
 
     public Paddle getPaddle() {
         return paddle;
+    }
+
+    public List<Wall> getWalls() {
+        return walls;
     }
 
     public int getPoints() {

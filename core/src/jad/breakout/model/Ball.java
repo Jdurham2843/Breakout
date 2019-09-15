@@ -28,7 +28,6 @@ public class Ball extends GameObject {
 
     @Override
     public void update(float deltaTime) {
-        this.moveBackOnScreen();
         if (getVector().y + HEIGHT == DimensionHelper.playAreaHeight() || getVector().y == 0) {
             direction.y = -direction.y;
         }

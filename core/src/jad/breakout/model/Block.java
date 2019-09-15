@@ -1,5 +1,6 @@
 package jad.breakout.model;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -7,8 +8,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Block extends GameObject {
 
-    public static final int WIDTH = 40;
-    public static final int HEIGHT = 40;
+    public static final int WIDTH = (int) (Gdx.graphics.getWidth() * .02);
+    public static final int HEIGHT = (int) (Gdx.graphics.getWidth() * .02);
 
     private final Color color;
 
